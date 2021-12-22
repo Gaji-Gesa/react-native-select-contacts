@@ -146,6 +146,6 @@
   },
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.9",
-    "react-native-unified-contacts": "^2.0.0-pre.2"
+    "react-native-contacts": "7.0.3"
   }
 }

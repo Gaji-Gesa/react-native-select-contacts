@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {View, Text, FlatList, Pressable, ActivityIndicator, TextInput} from 'react-native'
-import Contacts from "react-native-unified-contacts"
+import Contacts from 'react-native-contacts';
 import Divider from './Divider'
-import CheckBox from '@react-native-community/checkbox';
 import RenderItem from './Item';
 
 const data ={
@@ -26,16 +25,15 @@ const MultiContacts =({font, onResult, max=15, title1='', title2='', searchIcon
 
   const getContacts = useCallback(() => {
    
-     Contacts.getContacts( (error, contacts) =>  {
-      if (error) {
 
-      }
-      else {
-
+    Contacts.getAll()
+    .then((contacts) => {
+        // work with contacts
         data.data=contacts
         setInitialLoading(false)
-      }
-    });
+        })
+
+  
   },[])
 
   const selectContact = (item)=>{
@@ -70,16 +68,14 @@ setRefresh(!refresh)
     }
   
     setTimeOut(setTimeout(()=>{
-      Contacts.searchContacts( text, (error, contacts) =>  {
-        if (error) {
-          console.error(error);
-        }
-        else {
-          data.data=contacts
-          setRefresh(!refresh)
-          setLoading(false)
-        }
-      });
+
+      Contacts.getContactsMatchingString(text).then(contacts=>{
+        data.data=contacts
+        setRefresh(!refresh)
+        setLoading(false)
+      })
+
+  
      
     }, duration))
 
@@ -134,8 +130,8 @@ const selectedContacts = useMemo(()=>map.size)
   
  
 
-  const keyExtractor =(item)=>{
-    return item.id.toString()
+  const keyExtractor =(item, index)=>{
+    return item?.recordID ?? index.toString()
   }
 
   const header =()=>{

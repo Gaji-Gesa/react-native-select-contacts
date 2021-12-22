@@ -2,18 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {View, Text, FlatList, Pressable, ActivityIndicator, TextInput} from 'react-native'
 import CheckBox from '@react-native-community/checkbox';
 
-const getPhoneNumber = (phoneNumberr)=>{ 
-  let phoneNumber = phoneNumberr
-  if(phoneNumber?.length>0){
-    if((phoneNumber?.substring(2,4) == '62') || (phoneNumber?.substring(2,4) == '65') || (phoneNumber?.substring(2,4) == '60') || (phoneNumber?.substring(2,4) == '91')){
-      phoneNumber = phoneNumber?.slice(0,2) + phoneNumber?.slice(4)
-    }else if(phoneNumber?.charAt(2) === '0'){
-      phoneNumber = phoneNumber?.slice(0,2) + phoneNumber?.slice(3)
-    }
-  }
 
-  return phoneNumber
-}
 
 const RenderItem =({item, stylePhone, styleName, showCheckBox, onLongPress, selectContact, onSimplePress, maxReached, max, isAlreadySelected = false})=>{
     const [toggleCheckBox, setToggleCheckBox] = useState(isAlreadySelected)
@@ -29,7 +18,7 @@ const RenderItem =({item, stylePhone, styleName, showCheckBox, onLongPress, sele
       setToggleCheckBox(!toggleCheckBox)
       selectContact({
         name:item?.displayName ?? '',
-        phoneNumber:item.phoneNumbers[0]?.stringValue.length>0?item.phoneNumbers[0]?.stringValue:item.phoneNumbers[0]?.digits
+        phoneNumber:item.phoneNumbers[0]?.number ?? ''
   
       })
     }
@@ -40,22 +29,20 @@ const RenderItem =({item, stylePhone, styleName, showCheckBox, onLongPress, sele
         if(showCheckBox){
           selectContact({
             name:item?.displayName ?? '',
-            phoneNumber:item.phoneNumbers[0]?.stringValue.length>0?item.phoneNumbers[0]?.stringValue:item.phoneNumbers[0]?.digits
+            phoneNumber:item.phoneNumbers[0]?.number ?? ''
       
           })
         }else{
           onSimplePress({
             name:item?.displayName ?? '',
-            phoneNumber:item.phoneNumbers[0]?.stringValue.length>0?item.phoneNumbers[0]?.stringValue:item.phoneNumbers[0]?.digits
+            phoneNumber:item.phoneNumbers[0]?.number ?? ''
       
           })
         }
       }
   
     }
-  
-  
-    
+   
     return(
       <Pressable
       onPress={onPress}
@@ -75,7 +62,7 @@ const RenderItem =({item, stylePhone, styleName, showCheckBox, onLongPress, sele
         setToggleCheckBox(newValue)
         selectContact({
           name:item?.displayName ?? '',
-          phoneNumber:item.phoneNumbers[0]?.stringValue.length>0?item.phoneNumbers[0]?.stringValue:item.phoneNumbers[0]?.digits
+          phoneNumber:item.phoneNumbers[0]?.number ?? ''
     
         })
       }else{
@@ -83,7 +70,7 @@ const RenderItem =({item, stylePhone, styleName, showCheckBox, onLongPress, sele
           setToggleCheckBox(newValue)
           selectContact({
             name:item?.displayName ?? '',
-            phoneNumber:item.phoneNumbers[0]?.stringValue.length>0?item.phoneNumbers[0]?.stringValue:item.phoneNumbers[0]?.digits
+            phoneNumber:item.phoneNumbers[0]?.number ?? ''
       
           })
         }
@@ -96,7 +83,7 @@ const RenderItem =({item, stylePhone, styleName, showCheckBox, onLongPress, sele
   
         <View>
         <Text style={styleName}>{item.displayName}</Text>
-        <Text style={stylePhone}>{item.phoneNumbers[0]?.stringValue.length>0?item.phoneNumbers[0]?.stringValue:item.phoneNumbers[0]?.digits}</Text>
+        <Text style={stylePhone}>{item.phoneNumbers[0]?.number ?? ''}</Text>
         </View>
        
       </Pressable>
