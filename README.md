@@ -1,11 +1,11 @@
-# react-native-select-multi-contacts
+# react-native-select-contacts
 
 A library to select single or multiple contacts
 
 ## Installation
 
 ```sh
-npm install react-native-select-multi-contacts
+npm install react-native-select-contacts
 ```
 
 ## Usage
