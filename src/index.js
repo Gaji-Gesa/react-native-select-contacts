@@ -187,7 +187,7 @@ const selectedContacts = useMemo(()=>map.size)
              onResult(arr)
            }}
          android_ripple={{color:'grey'}}
-           style={{height:'100%', padding:20, justifyContent:'center', alignItems:'center'}}
+           style={{height:'100%', margin:20, justifyContent:'center', alignItems:'center'}}
           >
           <Text style={{...style2}}>{title2}</Text>
           </Pressable>
