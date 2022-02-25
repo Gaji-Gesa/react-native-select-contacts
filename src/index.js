@@ -206,10 +206,7 @@ const selectedContacts = useMemo(()=>map.size)
     maxToRenderPerBatch={20}
     data={data.data}
     initialNumToRender={20}
-    renderItem={renderItem}
-
-
-    
+    renderItem={renderItem}    
     />
     }
    
