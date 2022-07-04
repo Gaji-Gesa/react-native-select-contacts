@@ -54,8 +54,9 @@ const RenderItem =({item, stylePhone, styleName, showCheckBox, onLongPress, sele
         {showCheckBox && <CheckBox
    
     value={toggleCheckBox}
-    tintColor='#0053DC'
-    onFillColor='#0053DC'
+    // tintColor='#0053DC'
+    // onFillColor='#0053DC'
+    tintColors={{true: '#0053DC', false: '#979797'}}
     style={{marginEnd:10}}
     onValueChange={(newValue) =>{
       if(!(maxReached+1>max)){
